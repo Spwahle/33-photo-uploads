@@ -7,8 +7,7 @@ import {profileFetchRequest, profileCreateRequest} from '../../action/profile-ac
 
 class SettingsContainer extends React.Component {
   componentWillMount() {
-    // if the user account has a profile, set it as this.props.profile
-    this.props.profileFetch()
+    if(!this.props.profile) this.props.profileFetch()
   }
 
   render() {
@@ -21,6 +20,10 @@ class SettingsContainer extends React.Component {
               buttonText="create"
               onComplete={this.props.profileCreate}/>
           </div>
+        )}
+
+        {utils.renderIf(this.props.auth && this.props.profile, 
+          // TODO: render a form for updating the profile
         )}
       </div>
     )

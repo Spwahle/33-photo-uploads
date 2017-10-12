@@ -1,11 +1,11 @@
-import React from 'React';
+import React from 'react';
 import * as utils from '../../lib/utils';
 
 class PhotoForm extends React.Component {
   constructor(props){
     super(props);
-    this.state = props.photo
-      ? props.photo
+    this.state = this.props.photo
+      ? {... this.props.photo, preview: ''}
       : {description: '' , preview: '', photo: null};
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,12 +29,10 @@ class PhotoForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    return this.props.onComplete(this.state)
-      .then(() => { 
-        if(!this.props.profile){
-          this.setState({description: '' , preview: '', photo: null});
-        }
-      });
+    this.props.onComplete(this.state)
+      .then(() =>  
+        this.setState({description: '' , preview: '', photo: null}))
+      .then(() => this.props.toggle ? this.props.toggle() : undefined);
   }
 
   render () {
@@ -45,10 +43,13 @@ class PhotoForm extends React.Component {
           className="photoForm"
           onSubmit={this.handleSubmit}>
 
-          <img src={this.state.preview} style={{'width': '25%'}}/>
+          {utils.renderIf(this.state.preview || this.state.url,
+            <img src={this.state.preview || this.state.url} style={{'width': '25%'}}/>
+          )}
           <input
             type="file"
             name="photo"
+            value={this.state.description}
             onChange={this.handleChange}/>
           <h2>Add a description</h2>
           <textarea

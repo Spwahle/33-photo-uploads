@@ -1,10 +1,15 @@
 import superagent from 'superagent';
 
 
-export const photoSet = photo => ({
+export const photoSet = photos => ({
   type: 'PHOTO_SET',
-  payload: photo,
+  payload: photos,
 });
+export const photoFetch = photos => ({
+  type: 'PHOTO_FETCH',
+  payload: photos,
+});
+
 export const photoCreate = photo => ({
   type: 'PHOTO_CREATE',
   payload: photo,
