@@ -1,5 +1,6 @@
 import React from 'react';
 import * as utils from '../../lib/utils';
+import {Button} from 'react-bootstrap';
 
 class AuthForm extends React.Component {
   constructor(props) {
@@ -34,7 +35,8 @@ class AuthForm extends React.Component {
       password: this.state.password,
       email: this.state.email,
     })
-      .then(() => this.setState({username: '', email: '', password: ''}))
+    // .then(() => this.setState({username: '', email: '', password: ''})) // No longer necessary given the redirect to a different view
+      .then(() => this.props.redirect('/dashboard'))
       .catch(error => {
         console.error(error);
         this.setState({error});
@@ -56,7 +58,7 @@ class AuthForm extends React.Component {
           name="username"
           placeholder="username"
           value={this.state.username}
-          onChange={this.handleChange}/>
+          onChange={this.handleChange}/><br/>
 
         {utils.renderIf(this.state.emailError,
           <span className="tooltip">{this.state.emailError}</span>
@@ -80,9 +82,8 @@ class AuthForm extends React.Component {
           name="password"
           placeholder="password"
           value={this.state.password}
-          onChange={this.handleChange}/>
-
-        <button type="submit">{this.props.auth}</button>
+          onChange={this.handleChange}/><br/>
+        <Button bsStyle="primary" type='submit'>{this.props.auth}</Button>
       </form>
     );
   }

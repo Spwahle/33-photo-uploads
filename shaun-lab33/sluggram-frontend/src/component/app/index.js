@@ -1,4 +1,5 @@
 import React from 'react';
+import './_app.scss';
 import Navbar from '../navbar';
 import {connect} from 'react-redux';
 import * as utils from '../../lib/utils';
@@ -9,10 +10,12 @@ import SettingsContainer from '../settings-container';
 import DashboardContainer from '../dashboard-container';
 
 class App extends React.Component {
-  componentDidMount() {
-    let token = utils.cookieFetch('X-Sluggram-Token');
-    if(token) this.props.tokenSet(token);
-  }
+
+
+  // componentDidMount() {
+  //   let token = utils.cookieFetch('X-Sluggram-Token');
+  //   if(token) this.props.tokenSet(token);
+  // }
 
   render() {
     return (
@@ -20,9 +23,9 @@ class App extends React.Component {
         <BrowserRouter>
           <div>
             <Navbar />
+            <Route path="/settings" component={SettingsContainer}/>
             <Route path="/welcome/:auth" component={LandingContainer}/>
-            <Route exact path="/settings" component={() => this.props.auth ? <SettingsContainer/> : <Redirect to="/"/>}/>
-            <Route exact path="/" component={() => this.props.auth ? <DashboardContainer/> : <Redirect to="/"/>}/>
+            <Route exact path="/dashboard" component={DashboardContainer}/>
           </div>
         </BrowserRouter>
       </div>

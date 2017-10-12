@@ -1,44 +1,61 @@
 import React from 'react';
+import './_photo-item.scss';
 import {connect} from 'react-redux';
-import * as utils from '../../lib/utils';
+import * as utils from '../../lib/utils.js';
+import {Button, Grid, Col, Row, Image} from 'react-bootstrap';
 import PhotoForm from '../photo-form';
 import {photoDeleteRequest, photoUpdateRequest} from '../../action/photo-actions.js';
 
 class PhotoItem extends React.Component {
-  constructor(props) {
+  constructor(props){
     super(props);
     this.state = {
-      editing: false,
+      edit: false,
     };
-    this.toggleEdit = this.toggleEdit.bing(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
-  toggleEdit() {
-    this.setState({ editing: !this.state.editing});
+  handleDelete() {
+    return this.props.deletePhoto(this.props.photo)
+      .catch(console.error);
   }
 
+  handleUpdate(photo) {
+    return this.props.updatePhoto(photo)
+      .then(() => {
+        this.setState({edit: false});
+      })
+      .catch(console.error);
+  }
+  
   render() {
-    let {photo} = this.props;
-
     return (
-      <div className="photo-item">
-        {utils.renderIf(!this.state.editing,
+   
+      <div>
+        {utils.renderIf(!this.state.edit ,
+
           <div>
-            <img src={photo.url} style={{'width': '25%'}}/>
-            <p>{photo.description}</p>
-            <i>X</i>
-            <i>Edit</i>
+            <Image className='uploadedImages' src={this.props.photo.url} responsive />
+            <p> {this.props.photo.description} </p>
+            <Button bsStyle="danger" onClick={this.handleDelete}>X</Button>
+            <Button bsStyle="primary" onClick={() =>this.setState({edit: true})}>Edit</Button>
+          </div>
+
+        )}
+
+        {utils.renderIf(this.state.edit,
+          <div>
+            <PhotoForm
+              hideUploadForm={'hideUploadForm'}
+              photo={this.props.photo}
+              buttonText='update'
+              onComplete={this.handleUpdate}
+            />
           </div>
         )}
+      </div> 
 
-        {utils.renderIf(this.state.editing, 
-          <PhotoForm
-            buttonText="update"
-            photo={photo}
-            onComplete={this.props.updatePhoto}/>
-        )}
-            
-      </div>
     );
   }
 }

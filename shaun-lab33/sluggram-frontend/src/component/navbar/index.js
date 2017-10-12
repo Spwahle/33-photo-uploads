@@ -1,7 +1,10 @@
 import React from 'react';
+import './_navbar.scss';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {tokenDeleteRequest} from '../../action/auth-actions';
+import {tokenDelete} from '../../action/auth-actions';
+// import { AccessAlarm, ThreeDRotation } from 'material-ui-icons';
+
 
 class Navbar extends React.Component {
   render() {
@@ -10,7 +13,7 @@ class Navbar extends React.Component {
         {this.props.auth && this.props.profile ? 
           <div className="profile-header">
             <h2>Welcome {this.props.profile.username}</h2>
-            <img src={this.props.profile.avatar} style={{"width": "15%", "border": "1px solid grey"}}/>
+            <img src={this.props.profile.avatar} style={{'width': '15%', 'border': '1px solid grey'}}/>
           </div>
           :
           undefined
@@ -19,7 +22,8 @@ class Navbar extends React.Component {
           <ul>
             {this.props.auth ?
               <div>
-                <li onClick={this.props.tokenDelete}><Link to="/">Logout</Link></li>
+                <li onClick={this.props.tokenDelete}><Link to="/">Logout</Link></li> 
+                <li><Link to="/dashboard">Dashboard</Link></li> 
                 <li><Link to="/settings">Settings</Link></li> 
               </div>
               :
@@ -41,7 +45,7 @@ let mapStateToProps = state => ({
 });
 
 let mapDispatchToProps = dispatch => ({
-  tokenDelete: () => dispatch(tokenDeleteRequest()),
+  tokenDelete: () => dispatch(tokenDelete()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar);
