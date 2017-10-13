@@ -32,8 +32,8 @@ class DashboardContainer extends React.Component {
     return (
       <div>
         <Jumbotron>
-          <h1>SlugGram</h1>
-          <p>Click here to upload a photo</p>
+          <h1>InstyGrammy</h1>
+          <p>Share what you love</p>
           <p><Button bsStyle="primary" onClick={this.toggleFormStart}>Upload a Photo</Button></p>
         </Jumbotron>
 
@@ -74,5 +74,3 @@ let mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer);
-
-
