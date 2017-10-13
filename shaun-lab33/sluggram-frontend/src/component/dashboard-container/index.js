@@ -32,7 +32,7 @@ class DashboardContainer extends React.Component {
     return (
       <div>
         <Jumbotron>
-          <h1>BasicGram</h1>
+          <h1>SlugGram</h1>
           <p>Click here to upload a photo</p>
           <p><Button bsStyle="primary" onClick={this.toggleFormStart}>Upload a Photo</Button></p>
         </Jumbotron>

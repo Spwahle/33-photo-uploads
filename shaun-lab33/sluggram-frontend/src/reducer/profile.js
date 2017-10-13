@@ -9,8 +9,11 @@ export default (state=[], action) => {
   let {type, payload} = action;
   switch(type) {
   case 'PROFILE_SET': return validateProfile(payload);
+
   case 'PROFILE_CREATE': return validateProfile(payload);
+
   case 'PROFILE_UPDATE': return payload;
+  
   default: return state;
   }
 };

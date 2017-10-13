@@ -30,7 +30,7 @@ class SettingsContainer extends React.Component {
       <div className="settings-container">
         {utils.renderIf(this.props.auth && !this.props.profile, 
           <div className="profile-form-container">
-            <h2>Create your profile!</h2>
+            <h2>Create profile</h2>
             <ProfileForm 
               buttonText="Create"
               onComplete={this.props.profileCreate}/>
@@ -45,7 +45,7 @@ class SettingsContainer extends React.Component {
         )}
         {utils.renderIf(this.state.editProfile,
           <div>
-            <h3>Update your profile</h3>
+            <h3>Update profile</h3>
             <ProfileForm
               buttonText="Update"
               onComplete={this.props.profileUpdate}

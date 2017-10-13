@@ -1,6 +1,6 @@
 export default store => next => action => {
-  console.log('Here is my', action)
+  console.log('Here is my', action);
   return typeof action === 'function'
-  ? action(store.dispatch, store.getState)
-  : next(action)
-}
+    ? action(store.dispatch, store.getState)
+    : next(action);
+};
